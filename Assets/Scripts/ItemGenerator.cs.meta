@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c4618d34e68ed93428b37827a0d6ab3e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - carPrefab: {fileID: 4757017123514567102, guid: e6aeead51812266498ebf72ca7960137, type: 3}
+  - coinPrefab: {instanceID: 0}
+  - conePrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
