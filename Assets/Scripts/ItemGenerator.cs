@@ -11,6 +11,8 @@ public class ItemGenerator : MonoBehaviour
     [SerializeField] private GameObject coinPrefab;
     //cornPrefabを入れる
     [SerializeField] private GameObject conePrefab;
+    //Unityちゃんを入れる
+    private GameObject unityChan;
 
     //スタート地点
     private int startPos = 80;
@@ -19,11 +21,15 @@ public class ItemGenerator : MonoBehaviour
     //アイテムを出すx方向の範囲
     private float posRange = 3.4f;
     
+    
     // Start is called before the first frame update
     void Start()
     {
 
-        //一定の距離ごとにアイテムを生成
+        //Unityちゃんを見つける
+        unityChan = GameObject.Find("unitychan");
+
+       /* //一定の距離ごとにアイテムを生成
         for (int i = startPos; i < goalPos; i += 15) {
             //どのアイテムを出すのかをランダムに設定
             bool twoLessThan = Random.Range(1, 11) <= 2;
@@ -31,8 +37,18 @@ public class ItemGenerator : MonoBehaviour
             bool coneProbability = Random.Range(1, 11) <= 2;
             if (coneProbability) ConeInstantiate(i);
             else LaneItemInstantiate(i, twoLessThan);
-        }
+        }*/
 
+    }
+
+    void Update() {
+
+        //Unityちゃんの前方40m
+        float unitychanPosFront = unityChan.transform.position.z + 50f;
+        //コーン生成の割合
+        bool twoLessThan = Random.Range(1, 11) <= 2;
+        if (startPos <= goalPos)
+        if (startPos <= unitychanPosFront) LaneItemInstantiate(startPos, twoLessThan);
     }
 
 
@@ -60,6 +76,8 @@ public class ItemGenerator : MonoBehaviour
 
     //レーンごとにアイテムを生成する関数
     private void LaneItemInstantiate(int i,bool twoLessThan) {
+        startPos += 15;
+        Debug.Log(startPos);
         if (twoLessThan) ConeInstantiate(i);
         else {
 

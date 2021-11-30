@@ -5,8 +5,8 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - carPrefab: {fileID: 4757017123514567102, guid: e6aeead51812266498ebf72ca7960137, type: 3}
-  - coinPrefab: {instanceID: 0}
-  - conePrefab: {instanceID: 0}
+  - coinPrefab: {fileID: 7940891829002766798, guid: 5641554909dac48479dba15de0c1d3cf, type: 3}
+  - conePrefab: {fileID: 2448591599529042757, guid: 0131167a53708d843ad0eedff79d68a9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
