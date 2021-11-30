@@ -29,16 +29,6 @@ public class ItemGenerator : MonoBehaviour
         //Unityちゃんを見つける
         unityChan = GameObject.Find("unitychan");
 
-       /* //一定の距離ごとにアイテムを生成
-        for (int i = startPos; i < goalPos; i += 15) {
-            //どのアイテムを出すのかをランダムに設定
-            bool twoLessThan = Random.Range(1, 11) <= 2;
-            //コーン
-            bool coneProbability = Random.Range(1, 11) <= 2;
-            if (coneProbability) ConeInstantiate(i);
-            else LaneItemInstantiate(i, twoLessThan);
-        }*/
-
     }
 
     void Update() {
