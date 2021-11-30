@@ -15,11 +15,13 @@ public class ItemGenerator : MonoBehaviour
     private GameObject unityChan;
 
     //スタート地点
-    private int startPos = 80;
+    private const int startPos = 80;
     //ゴール地点
     private int goalPos = 360;
     //アイテムを出すx方向の範囲
     private float posRange = 3.4f;
+    //アイテム生成位置
+    private int GenerateItemPos = startPos;
     
     
     // Start is called before the first frame update
@@ -36,15 +38,19 @@ public class ItemGenerator : MonoBehaviour
         //Unityちゃんの前方40m
         float unitychanPosFront = unityChan.transform.position.z + 50f;
         //コーン生成の割合
-        bool twoLessThan = Random.Range(1, 11) <= 2;
-        if (startPos <= goalPos)
-        if (startPos <= unitychanPosFront) LaneItemInstantiate(startPos, twoLessThan);
+
+        if (GenerateItemPos < goalPos && GenerateItemPos <= unitychanPosFront){
+            
+            LaneItemInstantiate(GenerateItemPos);
+            GenerateItemPos += 15;
+        }
     }
 
 
     //コーンを生成する関数
-    private void ConeInstantiate(int i) {
+    private void ConeInstantiate(int i,int dice) {
         for (float j = -1f; j <= 1f; j += 0.4f) {
+            
             //コーンをx軸方向に一直線に生成
             GameObject cone = Instantiate(conePrefab);
             cone.transform.position = new Vector3(4 * j, cone.transform.position.y, i);
@@ -65,22 +71,29 @@ public class ItemGenerator : MonoBehaviour
     }
 
     //レーンごとにアイテムを生成する関数
-    private void LaneItemInstantiate(int i,bool twoLessThan) {
-        startPos += 15;
-        Debug.Log(startPos);
-        if (twoLessThan) ConeInstantiate(i);
+    private void LaneItemInstantiate(int z) {
+        int dice = Random.Range(1, 11);
+        bool coneGenerate = dice <= 2;
+        if (coneGenerate) ConeInstantiate(z,dice);
         else {
-
-            for (int j = -1; j <= 1; j++) {
-                //アイテムの種類を決める
-                bool coinProbability = 1 <= Random.Range(1, 11) && Random.Range(1, 11) <= 6;
-                bool carProbability = 7 <= Random.Range(1, 11) && Random.Range(1, 11) <= 9;
-                //アイテムを置くZ座標のオフセットをランダムに設定
-                int offsetZ = Random.Range(-5, 6);
-                //60%コイン配置:30%車配置:10%何もなし
-                if (coinProbability) CoinInstantiate(i, j,offsetZ);
-                else if (carProbability) CarInstantiate(i, j,offsetZ);
-            }
+            GenarateCoinOrCar(z); 
         }
+    }
+
+    private void GenarateCoinOrCar(int z) {
+
+        for (int j = -1; j <= 1; j++) {
+
+            int coinOrCarDaice = Random.Range(1, 11);
+            //アイテムの種類を決める
+            bool coinProbability = 1 <= coinOrCarDaice && coinOrCarDaice <= 6;
+            bool carProbability = 7 <= coinOrCarDaice && coinOrCarDaice <= 9;
+            //アイテムを置くZ座標のオフセットをランダムに設定
+            int offsetZ = Random.Range(-5, 6);
+            //60%コイン配置:30%車配置:10%何もなし
+            if (coinProbability) CoinInstantiate(z, j, offsetZ);
+            else if (carProbability) CarInstantiate(z, j, offsetZ);
+        }
+
     }
 }
